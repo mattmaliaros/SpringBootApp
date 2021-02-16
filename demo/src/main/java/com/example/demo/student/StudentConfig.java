@@ -15,8 +15,8 @@ public class StudentConfig {
         StudentRepository repository) {
 
     return args -> {
-        Student matt = new Student(1L, "Matt", "mattmillz@gmail.com", 27, LocalDate.of(1993, 10, 21));
-        Student alex = new Student("Alex", "alex@gmail.com", 27, LocalDate.of(1994, 11, 11));
+        Student matt = new Student(1L, "Matt", "mattmillz@gmail.com",  LocalDate.of(1993, 10, 21));
+        Student alex = new Student("Alex", "alex@gmail.com",  LocalDate.of(1994, 11, 11));
 
         repository.saveAll(List.of(matt, alex));
     };
