@@ -1,9 +1,12 @@
 package com.example.demo.student;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.io.BufferedReader;
 import java.util.List;
 
 @RestController
@@ -15,6 +18,9 @@ public class StudentController {
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
+
+
+
     @GetMapping public List<Student> getStudents() {
         return studentService.getStudents();
     }
@@ -23,6 +29,21 @@ public class StudentController {
     public void registerNewStudent(@RequestBody Student student) {
         studentService.addNewStudent(student);
 
+    }
+    @DeleteMapping(path = "{studentId}")
+    public void deleteStudent(@PathVariable("studentId") Long id) {
+    studentService.deleteStudent(id);
+    }
+
+    @PutMapping(path = "{studentId}")
+    public void changeEmailAndNameOfStudent(@PathVariable("studentId") Long id, @RequestBody String body) throws JSONException {
+        JSONObject jsonObject = new JSONObject(body);
+        String emailParsed = jsonObject.getString("email");
+        String nameParsed = jsonObject.getString("name");
+
+
+
+        studentService.updateStudent(id, emailParsed, nameParsed);
     }
 
 
